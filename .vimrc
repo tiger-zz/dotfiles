@@ -10,11 +10,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Townk/vim-autoclose'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'shiracamus/vim-syntax-x86-objdump-d'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'maxboisvert/vim-simple-complete'
 Plugin 'miyakogi/conoline.vim'
@@ -23,14 +21,16 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'vim-scripts/a.vim'
 Plugin 'sickill/vim-monokai'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'itchyny/vim-gitbranch'
-" Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Raimondi/delimitMate'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 
 " Colors
 syntax on
@@ -40,14 +40,9 @@ colorscheme monokai
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
-" Tabs
-
-" set autoindent
-" set smartindent
-" set tabstop=2
-" set shiftwidth=2
-
+" Tabbing
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set breakindent
 
 " Highlight line
 set cursorline
@@ -56,10 +51,11 @@ hi CursorLine term=bold cterm=bold
 " Line Number
 set number
 set ruler
-" highlight LineNr ctermbg=grey37
 
 " Column marker
 " set colorcolumn=80
+
+" Only highlight text over line 80
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 match OverLength /\%>80v.\+/
 
@@ -68,25 +64,19 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_mode_map = {'passive_filetypes': ['asm']}
-set breakindent
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_mode_map = {'passive_filetypes': ['asm']}
 
-" lightline settings
-set laststatus=2
-let g:lightline = {
-    \ 'colorscheme': 'molokai',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'gitbranch#name'
-    \ },
-    \ }
+
+" Airline settings
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='molokai'
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#hunks#non_zero_only = 1
 
 " Get y86 auto syntax highlighting
 autocmd BufNewFile,BufRead *.ys set syntax=y86
@@ -102,9 +92,6 @@ let g:conoline_use_colorscheme_default_insert=1
 " NERDTree settings
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
-
-" gitgutter settings
-let g:airline#extensions#hunks#non_zero_only = 1
 
 "delimitMate Sttings
 let delimitMate_expand_cr = 1
