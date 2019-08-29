@@ -116,10 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# mv aliases
-alias college="cd /mnt/d/College"
-alias mvcode="cd /mnt/d/coding"
-
 # git aliases
 alias gs='git status'
 alias ga='git add'
@@ -130,22 +126,12 @@ alias gb='git branch'
 alias gck='git checkout'
 alias gitgraph='git log --oneline --decorate --graph --all'
 
-# get current branch in git repo
-function parse_git_branch() {
-BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-if [ ! "${BRANCH}" == "" ]
-then
-echo "[${BRANCH}] "
-else
-echo ""
-fi
+parse_git_branch() {
+         git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 # exports
-export PS1="\u@\[\e[31m\]\h\[\e[m\]:\W\\$ "
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=/mnt/d/coding/go
+export PS1="\u@\[\e[31m\]\h\[\e[m\]:\W\[\e[32m\]\$(parse_git_branch)\[\e[00m\]\$ "
 LS_COLORS=$LS_COLORS:'ow=1;34;100' ; export LS_COLORS
 
-eval $(ssh-agent -s)
-ssh-add ~/.ssh/id_rsa
+# local exports/aliases
