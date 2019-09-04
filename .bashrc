@@ -126,9 +126,13 @@ alias gb='git branch'
 alias gck='git checkout'
 alias gitgraph='git log --oneline --decorate --graph --all'
 
+# function to display current branch in prompt
 parse_git_branch() {
          git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
+
+# map nvim to vim
+alias vim="nvim"
 
 # exports
 export PS1="\u@\[\e[31m\]\h\[\e[m\]:\W\[\e[32m\]\$(parse_git_branch)\[\e[00m\]\$ "
