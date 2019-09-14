@@ -135,7 +135,7 @@ parse_git_branch() {
 alias vim="nvim"
 
 # exports
-export PS1="\u@\[\e[31m\]\h\[\e[m\]:\W\[\e[32m\]\$(parse_git_branch)\[\e[00m\]\$ "
+export PS1="\u@\[\e[31m\]\h\[\e[m\]:\W\[\e[32m\]\$(parse_git_branch)\[\e[00m\]\\$ "
 LS_COLORS=$LS_COLORS:'ow=1;34;100' ; export LS_COLORS
 
 # local exports/aliases
