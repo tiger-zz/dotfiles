@@ -11,6 +11,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'maxboisvert/vim-simple-complete'
 Plug 'miyakogi/conoline.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/a.vim'
+Plug 'Townk/vim-autoclose'
 
 " Init plugin system
 call plug#end()
@@ -34,6 +39,9 @@ hi CursorLine term=bold cterm=bold
 " Line Number
 set number
 set ruler
+
+" Set spellcheck
+set spell
 
 " Column marker
 " set colorcolumn=80
@@ -60,4 +68,4 @@ let g:conoline_use_colorscheme_default_insert=1
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 
-
+set pastetoggle=<F2>
