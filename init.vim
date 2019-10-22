@@ -69,3 +69,15 @@ let g:conoline_use_colorscheme_default_insert=1
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 
 set pastetoggle=<F2>
+
+" Toggle spellchecking
+function! ToggleSpellCheck()
+  set spell!
+  if &spell
+    echo "Spellcheck ON"
+  else
+    echo "Spellcheck OFF"
+  endif
+endfunction
+
+nnoremap <silent> <F3> :call ToggleSpellCheck()<CR>
