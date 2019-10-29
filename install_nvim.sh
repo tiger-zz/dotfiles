@@ -6,7 +6,11 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 # link config files
 mkdir -p ~/.config/nvim
-ln -s init.vim ~/.config/nvim/init.vim
+LOCALDIR=$(pwd)
+TMUX="/.tmux.conf"
+NVIM="/init.vim"
+ln -s "$LOCALDIR$NVIM" ~/.config/nvim/init.vim
+ln -s "$LOCALDIR$TMUX" ~/.tmux.conf
 
 # install plugins
 nvim +PlugInstall +qall
