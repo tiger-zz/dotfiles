@@ -40,9 +40,6 @@ hi CursorLine term=bold cterm=bold
 set number
 set ruler
 
-" Set spellcheck
-set spell
-
 " Column marker
 " set colorcolumn=80
 
