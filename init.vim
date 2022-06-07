@@ -4,9 +4,14 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " plugins here
+
+" Making Vim look pretty
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sickill/vim-monokai'
+Plug 'arcticicestudio/nord-vim'
+
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'maxboisvert/vim-simple-complete'
@@ -14,8 +19,7 @@ Plug 'miyakogi/conoline.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/a.vim'
-Plug 'Townk/vim-autoclose'
+Plug 'tpope/vim-fugitive'
 
 " Init plugin system
 call plug#end()
@@ -24,9 +28,9 @@ call plug#end()
 syntax on
 set t_Co=256
 set background=dark
-colorscheme monokai
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
+colorscheme nord
 
 " Tabbing
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -58,8 +62,10 @@ au BufReadPost,BufNewFile *.txt highlight OverLength ctermbg=darkred ctermfg=whi
 
 " ConoLine settings
 let g:conoline_auto_enable = 1
-let g:conoline_use_colorscheme_default_normal=1
-let g:conoline_use_colorscheme_default_insert=1
+let g:conoline_color_normal_dark = 'guibg=#181818'
+let g:conoline_color_normal_nr_dark = 'guibg=#181818'
+let g:conoline_color_insert_dark = 'guibg=#000000'
+let g:conoline_color_insert_nr_dark = 'guibg=#000000'
 
 " NERDTree settings
 " Open/close NERDTree Tabs with \t
@@ -78,3 +84,4 @@ function! ToggleSpellCheck()
 endfunction
 
 nnoremap <silent> <F3> :call ToggleSpellCheck()<CR>
+
