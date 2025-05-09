@@ -206,26 +206,8 @@ require('lazy').setup({
 
     {
         -- Github Copilot
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-            require("copilot").setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-            })
-        end
+        "github/copilot.vim",
     },
-
-    {
-        -- Github Copilot
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end
-    },
-
     { -- DAP, debugger
         "mfussenegger/nvim-dap"
     },
