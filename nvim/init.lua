@@ -75,6 +75,7 @@ require('lazy').setup({
             vim.g.blamer_delay = 500
         end,
     },
+    'rhysd/conflict-marker.vim',
 
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
@@ -91,7 +92,7 @@ require('lazy').setup({
 
             -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            { 'j-hui/fidget.nvim', opts = {} },
+            -- { 'j-hui/fidget.nvim', opts = {} },
 
             -- Additional lua configuration, makes nvim stuff amazing!
             'folke/neodev.nvim',
@@ -102,6 +103,44 @@ require('lazy').setup({
         -- Autocompletion
         'hrsh7th/nvim-cmp',
         dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    },
+
+    {
+        "folke/trouble.nvim",
+        opts = {}, -- for default options, refer to the configuration section for custom setup.
+        cmd = "Trouble",
+        keys = {
+            {
+                "<leader>xx",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Diagnostics (Trouble)",
+            },
+            {
+                "<leader>xX",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Buffer Diagnostics (Trouble)",
+            },
+            {
+                "<leader>cs",
+                "<cmd>Trouble symbols toggle focus=false<cr>",
+                desc = "Symbols (Trouble)",
+            },
+            {
+                "<leader>cl",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "LSP Definitions / references / ... (Trouble)",
+            },
+            {
+                "<leader>xL",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Location List (Trouble)",
+            },
+            {
+                "<leader>xQ",
+                "<cmd>Trouble qflist toggle<cr>",
+                desc = "Quickfix List (Trouble)",
+            },
+        },
     },
 
     -- Useful plugin to show you pending keybinds.
@@ -141,9 +180,8 @@ require('lazy').setup({
         'lukas-reineke/indent-blankline.nvim',
         -- Enable `lukas-reineke/indent-blankline.nvim`
         -- See `:help indent_blankline.txt`
+        version = "2.20.8",
         opts = {
-            char = '┊',
-            show_trailing_blankline_indent = false,
         },
     },
 
@@ -208,6 +246,35 @@ require('lazy').setup({
         -- Github Copilot
         "github/copilot.vim",
     },
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        opts = {
+            show_help = "yes",         -- Show help text for CopilotChatInPlace, default: yes
+            debug = false,             -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
+            disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
+        },
+        build = function()
+            vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
+        end,
+        event = "VeryLazy",
+        keys = {
+            { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+            { "<leader>cct", "<cmd>CopilotChatTests<cr>",   desc = "CopilotChat - Generate tests" },
+            {
+                "<leader>ccv",
+                ":CopilotChatVisual",
+                mode = "x",
+                desc = "CopilotChat - Open in vertical split",
+            },
+            {
+                "<leader>ccx",
+                ":CopilotChatInPlace<cr>",
+                mode = "x",
+                desc = "CopilotChat - Run in-place code",
+            },
+        },
+    },
+
     { -- DAP, debugger
         "mfussenegger/nvim-dap"
     },
@@ -343,6 +410,8 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>ht', require('telescope.builtin').help_tags, { desc = '[H]elp [T]ags' })
 
 vim.api.nvim_set_keymap(
     "n",
@@ -484,7 +553,7 @@ local servers = {
         dap_debug = true,
         dap_debug_gui = true,
         gopls = {
-            buildFlags = { '-tags=integration' },
+            buildFlags = { '-tags=integration,beta_v1,calendars,events,graph,gmail,threads,all_scopes,google,sync,smart_compose,webhook_health,imap,auth,messages' },
         }
     },
     -- pyright = {},
@@ -546,15 +615,15 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
+        -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --     if cmp.visible() then
+        --         cmp.select_next_item()
+        --     elseif luasnip.expand_or_jumpable() then
+        --         luasnip.expand_or_jump()
+        --     else
+        --         fallback()
+        --     end
+        -- end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
